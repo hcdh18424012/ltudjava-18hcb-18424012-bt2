@@ -1,10 +1,8 @@
-package pojo;
-import org.hibernate.cfg.AnnotationConfiguration;
+package dao;
 import org.hibernate.cfg.Configuration; 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.tool.hbm2ddl.SchemaExport;
+import pojo.UserPass;
 public class UserPassDAO {
 	public static void main(String []args) {
 		InsertData();
@@ -26,7 +24,7 @@ public class UserPassDAO {
 
 			
 			UserPass new_item = new UserPass();
-			new_item.setUsername("4h5");
+			new_item.setUsername("4h20");
 			new_item.setPassword("12345");
 			session.save(new_item);
 		
