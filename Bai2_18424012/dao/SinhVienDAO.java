@@ -1,30 +1,35 @@
 package dao;
-import org.hibernate.cfg.Configuration;
 
-import java.time.LocalTime;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import pojo.UserPass;
-public class UserPassDAO {
-	static SessionFactory sf = new Configuration().configure().buildSessionFactory();
-	public static void main(String []args) {
-//		InsertData();
+import org.hibernate.cfg.Configuration;
 
-		UpdatePass();
-		showAll();
-		sf.close();
+import pojo.SinhVien;
+
+public class SinhVienDAO {
+	private static SessionFactory factory;
+	public static void main(String[] args) {
+		try {
+			factory = new Configuration().configure().buildSessionFactory();			
+			addSinhVien("Iu","tran", null, null);
+			showAll();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		// TODO Auto-generated method stub
+
 	}
 	public static void showAll() {
-		Session session = sf.openSession();
+		Session session = factory.openSession();
 		try{
 			
 			session.beginTransaction();
 
-			List<UserPass> list = session.createQuery("from UserPass").list();
-			for (UserPass item : list) {
-				System.out.println(item.getUsername() + "\t" + item.getPassword());
+			List<SinhVien> list = session.createQuery("from SinhVien").list();
+			for (SinhVien item : list) {
+				System.out.println(item.getMasv() + "\t" + item.getHoten());
 			}
 		} catch (RuntimeException e) {
 			session.getTransaction().rollback();
@@ -36,7 +41,7 @@ public class UserPassDAO {
 	}
 
 	public static void UpdatePass() {
-		Session session = sf.openSession();
+		Session session = factory.openSession();
 		try {
 			session.beginTransaction();
 			String query = "update UserPass set password = :newPass where username = :name";
@@ -55,24 +60,12 @@ public class UserPassDAO {
 		}
 		
 	}
-	public static void InsertData() {
+	public static void addSinhVien(String masv, String hoten, String gioitinh, String cmnd) {
 		try {
-//			AnnotationConfiguration cfg = new AnnotationConfiguration();
-//			cfg.addAnnotatedClass(UserPass.class);
-//			cfg.configure("pojo/hibernate.cfg.xml");
-//			new SchemaExport(cfg).create(true,true);
-//			SessionFactory sf = cfg.buildSessionFactory();
-//			Session s = sf.getCurrentSession();
-//			s.beginTransaction();
-			Session session = sf.openSession();
+			Session session = factory.openSession();
 			session.beginTransaction();
 			
-
-			
-			UserPass new_item = new UserPass();
-			LocalTime now = LocalTime.now();
-			new_item.setUsername(now.toString());
-			new_item.setPassword("12345");
+			SinhVien new_item = new SinhVien(masv, hoten, gioitinh, cmnd);
 			session.save(new_item);
 		
 			session.getTransaction().commit();

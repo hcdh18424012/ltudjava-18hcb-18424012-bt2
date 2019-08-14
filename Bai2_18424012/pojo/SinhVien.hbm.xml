@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 14, 2019 12:16:12 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="pojo.SinhVien" table="SINHVIEN">
+        <id name="masv" type="java.lang.String">
+            <column name="MASV" />
+            <generator class="assigned" />
+        </id>
+        <property name="hoten" type="java.lang.String">
+            <column name="HOTEN" />
+        </property>
+        <property name="gioitinh" type="java.lang.String">
+            <column name="GIOITINH" />
+        </property>
+        <property name="cmnd" type="java.lang.String">
+            <column name="CMND" />
+        </property>
+    </class>
+</hibernate-mapping>

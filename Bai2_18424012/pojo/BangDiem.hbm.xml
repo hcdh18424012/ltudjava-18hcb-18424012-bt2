@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 14, 2019 11:02:17 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="pojo.BangDiem" table="BANGDIEM">
+        <id name="malop" type="java.lang.String">
+            <column name="MALOP" />
+            <generator class="assigned" />
+        </id>
+        <property name="masv" type="java.lang.String">
+            <column name="MASV" />
+        </property>
+        <property name="diemgk" type="java.lang.Float">
+            <column name="DIEMGK" />
+        </property>
+        <property name="diemck" type="java.lang.Float">
+            <column name="DIEMCK" />
+        </property>
+        <property name="diemkhac" type="java.lang.Float">
+            <column name="DIEMKHAC" />
+        </property>
+        <property name="diemtong" type="java.lang.Float">
+            <column name="DIEMTONG" />
+        </property>
+    </class>
+</hibernate-mapping>

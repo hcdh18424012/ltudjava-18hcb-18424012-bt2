@@ -2,5 +2,10 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-	<table-filter match-name="user_pass" match-catalog="qlsv"></table-filter>
+  <table-filter match-catalog="qlsv" match-name="bangdiem"/>
+  <table-filter match-catalog="qlsv" match-name="sinhvien"/>
+  <table-filter match-catalog="qlsv" match-name="phuckhao"/>
+  <table-filter match-catalog="qlsv" match-name="sv_phuckhao"/>
+  <table-filter match-catalog="qlsv" match-name="thoikhoabieu"/>
+  <table-filter match-catalog="qlsv" match-name="user_pass"/>
 </hibernate-reverse-engineering>
