@@ -11,7 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Font;
 @SuppressWarnings("serial")
-public class login extends JFrame {
+public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsername;
@@ -24,7 +24,7 @@ public class login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					login frame = new login();
+					Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +36,7 @@ public class login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public login() {
+	public Login() {
 		setFont(new Font(".VnArial", Font.PLAIN, 10));
 		setResizable(false);
 		setTitle("Login");

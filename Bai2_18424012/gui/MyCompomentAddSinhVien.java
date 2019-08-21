@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 class MyCompomentAddSinhVien extends JPanel implements ActionListener {
 	JPanel panelMangerSV;
@@ -104,6 +106,8 @@ class MyCompomentAddSinhVien extends JPanel implements ActionListener {
 		panelMangerSV.add(lblThem);
 		setLayout(new BorderLayout());
 		add(panelMangerSV, BorderLayout.CENTER);
+		Border border = BorderFactory.createTitledBorder("Thêm Sinh Viên");
+		setBorder(border);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

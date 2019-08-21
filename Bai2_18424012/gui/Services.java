@@ -19,4 +19,22 @@ public class Services {
 	    }
 	    return null;
 	}
+	public void Login_out() {
+		System.out.println("Services Logout");
+	}
+	public void ChangePass() {
+		System.out.println("Services Change password");
+	}
+	public void XemDiemThi() {
+		System.out.println("Services Xem Diem Thi");
+	}
+	public void SuaDiemThi() {
+		System.out.println("Services Sửa Diem Thi");
+	}
+	public void DangKyCaiThien() {
+		System.out.println("Services Dang Ky Cai Thien");
+	}
+	public void XinNghi() {
+		System.out.println("Services Xin Nghỉ Học");
+	}
 }

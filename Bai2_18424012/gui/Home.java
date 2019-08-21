@@ -47,6 +47,11 @@ import java.awt.Button;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JList;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Home extends JFrame {
 
@@ -55,6 +60,7 @@ public class Home extends JFrame {
 	private JTextField txtImport;
 	private JTable table;
 	private JTextField textField;
+	private JTable tbl_List;
 
 	/**
 	 * Launch the application.
@@ -79,11 +85,63 @@ public class Home extends JFrame {
 	public void TestGui() {}
 	public Home() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 630, 562);
+		setBounds(100, 100, 674, 608);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnMenu = new JMenu("Account");
+		menuBar.add(mnMenu);
+		
+		JMenuItem mntmLogout = new JMenuItem("Logout");
+		mntmLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Login / Logout");
+			}
+		});
+		mntmLogout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Login / Logout");
+			}
+		});
+		mnMenu.add(mntmLogout);
+		
+		JMenuItem mntmChangePassword = new JMenuItem("Change PassWord");
+		mntmChangePassword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Change Password actionPerformed");
+			}
+		});
+		mntmChangePassword.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Change Password");
+			}
+		});
+		mnMenu.add(mntmChangePassword);
+		
+		JMenu mnQLDiem = new JMenu("Quản Lý Điểm");
+		menuBar.add(mnQLDiem);
+		
+		JMenuItem mntmXemDiem = new JMenuItem("Xem Điểm");
+		mnQLDiem.add(mntmXemDiem);
+		
+		JMenuItem mntmSuaDiem = new JMenuItem("Sửa Điểm");
+		mnQLDiem.add(mntmSuaDiem);
+		
+		JMenu mnDangKyCT = new JMenu("ĐK Cải Thiện");
+		menuBar.add(mnDangKyCT);
+		
+		JMenuItem mntmXinNghi = new JMenuItem("Xin Nghỉ");
+		mnDangKyCT.add(mntmXinNghi);
+		
+		JMenuItem mntmXinCaiThien = new JMenuItem("Xin Cải Thiện");
+		mnDangKyCT.add(mntmXinCaiThien);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout());
+		contentPane.setLayout(new BorderLayout(10, 10));
 		
 //		JPanel importPanel = new JPanel();
 //			
@@ -193,6 +251,9 @@ public class Home extends JFrame {
 	    JScrollPane scrollPane = new JScrollPane(table);
 	    tablePanel.add(scrollPane, BorderLayout.CENTER);
 	    
+	    JLabel lblNewLabel_1 = new JLabel("New label");
+	    scrollPane.setColumnHeaderView(lblNewLabel_1);
+	    
 
 	    
 	    // Vung Page_Start
@@ -203,7 +264,7 @@ public class Home extends JFrame {
 //		btn.setPreferredSize(new Dimension(360, 200));
 //		page_start.add(btn, BorderLayout.LINE_START);
 		MyCompomentAddSinhVien addSinhVien = new MyCompomentAddSinhVien();
-		addSinhVien.setPreferredSize(new Dimension(270, 250));
+		addSinhVien.setPreferredSize(new Dimension(280, 265));
 //		addSinhVien.setPreferredSize(new Dimension(300, 200));
 		JLabel lblTitle = new JLabel("Quản Lý Sinh Viên");
 		lblTitle.setHorizontalAlignment(JLabel.CENTER);
@@ -218,49 +279,57 @@ public class Home extends JFrame {
 		// Vung Line_Start
 		
 	    JPanel pnlLine_Start = new JPanel();
-//	    scrollPane.setRowHeaderView(pnlLine_Start);
-	    pnlLine_Start.setLayout(null);
-	    pnlLine_Start.setPreferredSize(new Dimension(286, 300));
-	    textField = new JTextField();
-	    textField.setBounds(114, 42, 165, 23);
-	    pnlLine_Start.add(textField);
-	    textField.setColumns(10);
-	    
-	    JList list = new JList();
-	    list.setBounds(46, 76, 233, 136);
-	    pnlLine_Start.add(list);
-	    
-	    JLabel lblNewLabel = new JLabel("Search");
-	    lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-	    lblNewLabel.setBounds(44, 46, 60, 14);
-	    pnlLine_Start.add(lblNewLabel);
+	    pnlLine_Start.setPreferredSize(new Dimension(280, 300));
+	    pnlLine_Start.setLayout(new BorderLayout(0, 0));
 	    
 	    
 		contentPane.add(tablePanel, BorderLayout.CENTER);
-		
-		JButton btnThem = new JButton("Thêm");
-		tablePanel.add(btnThem, BorderLayout.NORTH);
-		
-		JButton btnXoa = new JButton("Xóa");
-		tablePanel.add(btnXoa, BorderLayout.SOUTH);
 		contentPane.add(page_start, BorderLayout.PAGE_START);
 		contentPane.add(pnlLine_Start, BorderLayout.LINE_START);
 		
-		JButton btnXemDsLop = new JButton("XemDSLop");
-		btnXemDsLop.setBounds(190, 11, 89, 23);
-		pnlLine_Start.add(btnXemDsLop);
+		JPanel panel_1 = new JPanel();
+		pnlLine_Start.add(panel_1, BorderLayout.NORTH);
 		
-		JButton btnXemDiem = new JButton("Xem Điểm");
-		btnXemDiem.setBounds(97, 11, 89, 23);
-		pnlLine_Start.add(btnXemDiem);
+		JLabel lblNewLabel = new JLabel("Search");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel_1.add(lblNewLabel);
+		
+		textField = new JTextField();
+		panel_1.add(textField);
+		textField.setColumns(20);
+		
+		tbl_List = new JTable();
+		pnlLine_Start.add(new JScrollPane(tbl_List), BorderLayout.CENTER);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.SOUTH);
 		
 		JButton btnTKB = new JButton("Xem TKB");
+		panel.add(btnTKB);
+		
+		JButton btnXemDiem = new JButton("Xem Điểm");
+		panel.add(btnXemDiem);
+		
+		JButton btnXemDsLop = new JButton("XemDSLop");
+		panel.add(btnXemDsLop);
+		
+		JButton btnPhucKhao = new JButton("Phúc Khảo");
+		panel.add(btnPhucKhao);
+		
+		JButton btnAnHien = new JButton("Show/Hide Page_Start");
+		btnAnHien.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(page_start.isVisible())
+					page_start.setVisible(false);
+				else
+					page_start.setVisible(true);
+			}
+		});
+		panel.add(btnAnHien);
 		btnTKB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnTKB.setBounds(4, 11, 89, 23);
-		pnlLine_Start.add(btnTKB);
 		setMinimumSize(new Dimension(630, 500));
 		importPanel.addComponentListener(new ComponentAdapter(){
 			
