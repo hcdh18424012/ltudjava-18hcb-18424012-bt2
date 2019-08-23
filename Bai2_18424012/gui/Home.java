@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.ScrollPane;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -21,6 +22,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+
+import dao.SinhVienDAO;
+import pojo.SinhVien;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -56,12 +60,8 @@ import java.awt.event.MouseEvent;
 public class Home extends JFrame {
 
 	private JPanel contentPane;
-	Home frame;
-	private JTextField txtImport;
-	private JTable table;
-	private JTextField textField;
-	private JTable tbl_List;
-
+	private JTextField textSearch;
+	public static JTable tbl_List;
 	/**
 	 * Launch the application.
 	 */
@@ -69,8 +69,7 @@ public class Home extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home frame = new Home();
-				
+					Home frame = new Home();				
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,8 +83,9 @@ public class Home extends JFrame {
 	 */
 	public void TestGui() {}
 	public Home() {
+		setTitle("Home: " + Services.getData());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 674, 608);
+		setBounds(100, 100, 869, 608);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -96,13 +96,9 @@ public class Home extends JFrame {
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mntmLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				System.out.println("Login / Logout");
-			}
-		});
-		mntmLogout.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("Login / Logout");
+				Login.setVisible_Login();
 			}
 		});
 		mnMenu.add(mntmLogout);
@@ -197,17 +193,44 @@ public class Home extends JFrame {
 //			JButton btnImport = new JButton("Import");
 //			btnImport.setBounds(495, 35, 89, 23);
 //			importPanel.add(btnImport);
+//		
+//		Object rows[][] = {{"one", "ichi - \u4E00" },
+//		        {"two", "ni - \u4E8C" }, {"three", "san - \u4E09" },
+//		        {"four", "shi - \u56DB" }, {"five", "go - \u4E94" },
+//		        {"six", "roku - \u516D" }, {"seven", "shichi - \u4E03" },
+//		        {"eight", "hachi - \u516B" }, {"nine", "kyu - \u4E5D" },
+//		        {"ten", "ju - \u5341" } };
+//	    Object headers[] = {"select", "English", "Japanese" };
 		
-		Object rows[][] = {{"one", "ichi - \u4E00" },
-		        {"two", "ni - \u4E8C" }, {"three", "san - \u4E09" },
-		        {"four", "shi - \u56DB" }, {"five", "go - \u4E94" },
-		        {"six", "roku - \u516D" }, {"seven", "shichi - \u4E03" },
-		        {"eight", "hachi - \u516B" }, {"nine", "kyu - \u4E5D" },
-		        {"ten", "ju - \u5341" } };
-	    Object headers[] = {"select", "English", "Japanese" };
-	    table = new JTable();
+//	    System.out.println(rows.length);
+//	    for(int i = 0; i < rows.length; i++) {
+//	    	System.out.println(rows[i]);
+//	    	model.addRow(new Object[0]);
+//	    	model.setValueAt(false, i, 0);
+//	    	model.setValueAt(rows[i][0], i, 1);
+//	    	model.setValueAt(rows[i][1], i, 2);
+//	    }
+
+//	    DefaultTableModel model = new DefaultTableModel(new Object[][] {
+//	        { "some", "text" }, { "any", "text" }, { "even", "more" },
+//	        { "text", "strings" }, { "and", "other" }, { "text", "values" } },
+//	        new Object[] { "Column 1", "Column 2" });
+//		contentPane.add(table, BorderLayout.CENTER);
+		
+		
+		
+	    JPanel tablePanel = new JPanel();
+	    tablePanel.setLocation(20, 20);
+	    tablePanel.setLayout(new BorderLayout());
+//	    JScrollPane scrollPane = new JScrollPane(table);
+//	    tablePanel.add(scrollPane, BorderLayout.CENTER);
+	    JTable table = new JTable();
+	    tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
+	    JLabel lbl = new JLabel("Danh Sách Sinh Viên");
+	    tablePanel.add(lbl, BorderLayout.PAGE_START);
+	    Object columns[] = {"", "STT", "Mã SV", "Họ Tên", "Giới Tính", "CMND"};
 	    
-	    DefaultTableModel model = new DefaultTableModel(headers, 0) {
+	    DefaultTableModel model = new DefaultTableModel(columns, 0) {
 	    	public Class<?> getColumnClass(int column)
 	    	{
 	    		switch(column)
@@ -219,41 +242,32 @@ public class Home extends JFrame {
 	    		}
 	    	}
 	    };
-	    table = new JTable();
 
 	    table.setModel(model);
 	    table.setRowHeight(30);
 	    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
 	    table.getColumnModel().getColumn(0).setMaxWidth(30);
-	    table.getColumnModel().getColumn(1).setPreferredWidth(100);
-//	    table.getColumnModel().getColumn(2).setPreferredWidth(30);
-//	    table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+	    // STT
+	    table.getColumnModel().getColumn(1).setMaxWidth(50);
+	    table.getColumnModel().getColumn(2).setMaxWidth(100); // MaSV
+	    table.getColumnModel().getColumn(3).setMaxWidth(300); // Hoten
+	    table.getColumnModel().getColumn(4).setMaxWidth(100); // Gioi Tinh
+	    table.getColumnModel().getColumn(5).setMaxWidth(100); // CMND
+	    table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 //	    DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)table.getDefaultRenderer(Boolean.class);
 //	    renderer.setHorizontalAlignment(SwingConstants.RIGHT);
-//	    table.setDefaultRenderer(table.getColumnClass(0), renderer);    
-	    System.out.println(rows.length);
-	    for(int i = 0; i < rows.length; i++) {
-	    	System.out.println(rows[i]);
+//	    table.setDefaultRenderer(table.getColumnClass(0), renderer);  
+	    SinhVienDAO svDAO1 = new SinhVienDAO();
+	    List<SinhVien> sv = svDAO1.showAll();
+	    for(int i = 0; i < sv.size(); i++) {
 	    	model.addRow(new Object[0]);
-	    	model.setValueAt(false, i, 0);
-	    	model.setValueAt(rows[i][0], i, 1);
-	    	model.setValueAt(rows[i][1], i, 2);
+	    	model.setValueAt(false, i, 0); // set checkbox
+	    	model.setValueAt(i + 1, i, 1); // Số thứ tự
+	    	model.setValueAt(sv.get(i).getMasv(), i, 2);
+	    	model.setValueAt(sv.get(i).getHoten(), i, 3);
+	    	model.setValueAt(sv.get(i).getGioitinh(), i, 4);
+	    	model.setValueAt(sv.get(i).getCmnd(), i, 5);
 	    }
-
-//	    DefaultTableModel model = new DefaultTableModel(new Object[][] {
-//	        { "some", "text" }, { "any", "text" }, { "even", "more" },
-//	        { "text", "strings" }, { "and", "other" }, { "text", "values" } },
-//	        new Object[] { "Column 1", "Column 2" });
-//		contentPane.add(table, BorderLayout.CENTER);
-	    JPanel tablePanel = new JPanel();
-	    tablePanel.setLocation(20, 20);
-	    tablePanel.setLayout(new BorderLayout());
-	    JScrollPane scrollPane = new JScrollPane(table);
-	    tablePanel.add(scrollPane, BorderLayout.CENTER);
-	    
-	    JLabel lblNewLabel_1 = new JLabel("New label");
-	    scrollPane.setColumnHeaderView(lblNewLabel_1);
-	    
 
 	    
 	    // Vung Page_Start
@@ -292,12 +306,12 @@ public class Home extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Search");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel_1.add(lblNewLabel);
+		panel_1.add(lblNewLabel); 
 		
-		textField = new JTextField();
-		panel_1.add(textField);
-		textField.setColumns(20);
-		
+		textSearch = new JTextField();
+		panel_1.add(textSearch);
+		textSearch.setColumns(20);
+//		textSearch.setText();
 		tbl_List = new JTable();
 		pnlLine_Start.add(new JScrollPane(tbl_List), BorderLayout.CENTER);
 		
@@ -311,6 +325,11 @@ public class Home extends JFrame {
 		panel.add(btnXemDiem);
 		
 		JButton btnXemDsLop = new JButton("XemDSLop");
+		btnXemDsLop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				table = svDAO.ShowTable();
+			}
+		});
 		panel.add(btnXemDsLop);
 		
 		JButton btnPhucKhao = new JButton("Phúc Khảo");

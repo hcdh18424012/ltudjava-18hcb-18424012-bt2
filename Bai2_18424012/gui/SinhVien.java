@@ -56,7 +56,7 @@ public class SinhVien extends JFrame {
 	 * Create the frame.
 	 */
 	public SinhVien() {
-		setTitle("Sinh Viên");
+		setTitle("Sinh Viên: " + Services.getData());
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 632, 341);

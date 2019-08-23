@@ -6,6 +6,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -19,13 +22,17 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import dao.SinhVienDAO;
 
 import java.io.File;
 
 public class MyComponentImport extends JPanel implements ActionListener{
 	//Import
 	JPanel importPanel;
-	
+	JTextField txtImport;
 	JTextArea txtArea;
 	JRadioButton rLop;
 	JRadioButton rDiem;   
@@ -35,6 +42,9 @@ public class MyComponentImport extends JPanel implements ActionListener{
 	
 	JButton btnChonFile;
 	JButton btnImport;
+	File[] files;
+	static List<String> listFileTxtArea = new ArrayList<>();
+	String path = null;
 	public MyComponentImport(){
 		importPanel = new JPanel();	
 		String title = "Import Data";
@@ -69,7 +79,7 @@ public class MyComponentImport extends JPanel implements ActionListener{
                    BorderFactory.createEtchedBorder(), "Dữ liệu Import ???"));
         importPanel.add(radioPanel);
     		
-		btnChonFile = new JButton("New button");
+		btnChonFile = new JButton("...");
 		btnChonFile.addActionListener(this);
 		btnChonFile.setBounds(447, 35, 38, 23);
 		importPanel.add(btnChonFile);
@@ -84,27 +94,60 @@ public class MyComponentImport extends JPanel implements ActionListener{
 		scroll.setSize(427, 103);
 		importPanel.add(scroll);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		JTextField txtImport = new JTextField();
+		txtImport = new JTextField();
 		txtImport.setBounds(10, 35, 427, 20);
 		importPanel.add(txtImport);
 		txtImport.setColumns(10);
-		
 		btnImport = new JButton("Import");
 		btnImport.setBounds(495, 35, 89, 23);
+		btnImport.addActionListener(this);
 		importPanel.add(btnImport);
+		
 		setLayout(new BorderLayout());
 		add(importPanel, BorderLayout.CENTER);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		Services chonfile = new Services();
-		File[] files = chonfile.ChonFile();
-		if(files.length > 0) {
-			txtArea.append(files[0].toString());
-			for(int i = 1; i < files.length; i++)
-				txtArea.append("\n" + files[i]);
+		if(e.getActionCommand().equals("...")) {
+			Services chonfile = new Services();
+			File path_file = new File(txtImport.getText());
+			if(path_file.exists())
+				path = path_file.toString();
+			files = chonfile.ChonFile(path);
+			for(File f: files)
+				listFileTxtArea.add(f.toString());
+			txtArea.setText(setTextArea(listFileTxtArea));
+		}
+		if(e.getActionCommand().equals("Import")) {
+			ImportfileToTable();
+			if(rLop.isSelected())
+				System.out.println("Import Lop");
+			if(rDiem.isSelected())
+				System.out.println("Import Diem");
+			if(rTKB.isSelected())
+				System.out.println("Import TKB");
 		}
 			
+	}
+	public void ImportfileToTable() {
+		for(File f: files) {
+			System.out.println("Đang import: " + f);
+			listFileTxtArea.removeIf(s -> s.equals(f.toString()));
+			System.out.println(listFileTxtArea.size());
+			txtArea.setText(setTextArea(listFileTxtArea));
+			SinhVienDAO sinhVienDAO = new SinhVienDAO();
+			sinhVienDAO.writeFileSinhVien(f.toString());
+		}
+	}
+	public String setTextArea(List<String> list) {
+		String s = "";
+		if(list.size() > 0) {
+			s += (list.get(0));
+			for(int i = 1; i < list.size(); i++)
+				s += ("\n" + list.get(i));
+			return s;
+		}
+		return null;
 	}
 }

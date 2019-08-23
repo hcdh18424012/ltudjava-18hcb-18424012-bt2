@@ -5,19 +5,22 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import pojo.UserPass;
 public class UserPassDAO {
-	static SessionFactory sf = new Configuration().configure().buildSessionFactory();
+	private static SessionFactory factory = HibernateUtil.getSessionFactory();
 	public static void main(String []args) {
 //		InsertData();
 
-		UpdatePass();
+//		UpdatePass();
+		UserPass up = new UserPass("giaovu", "giaovu");
+		String s = Login(up);
 		showAll();
-		sf.close();
+		factory.close();
 	}
 	public static void showAll() {
-		Session session = sf.openSession();
+		Session session = factory.openSession();
 		try{
 			
 			session.beginTransaction();
@@ -36,7 +39,7 @@ public class UserPassDAO {
 	}
 
 	public static void UpdatePass() {
-		Session session = sf.openSession();
+		Session session = factory.openSession();
 		try {
 			session.beginTransaction();
 			String query = "update UserPass set password = :newPass where username = :name";
@@ -55,6 +58,33 @@ public class UserPassDAO {
 		}
 		
 	}
+	public static String Login(UserPass user) {
+		Session session = factory.openSession();
+		try {
+			session.beginTransaction();
+			String query = "select username from UserPass where username = :username";
+			Query query_results = session.createQuery(query).setString("username", user.getUsername());
+//			session.createQuery(query).setString("username", user.getUsername()).setString("password", user.getPassword()).executeUpdate();
+			List results = query_results.list();
+			if(results.size() > 0) {
+				System.out.println(query_results);
+				System.out.println(results.get(0));
+				return (String)results.get(0);
+			}
+				
+			session.getTransaction().commit();
+			
+			System.out.println("Insert finished");
+			return query;
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			// TODO: handle exception
+			System.out.println(e);
+		}finally {
+			session.close();
+		}
+		return null;
+	}
 	public static void InsertData() {
 		try {
 //			AnnotationConfiguration cfg = new AnnotationConfiguration();
@@ -64,7 +94,7 @@ public class UserPassDAO {
 //			SessionFactory sf = cfg.buildSessionFactory();
 //			Session s = sf.getCurrentSession();
 //			s.beginTransaction();
-			Session session = sf.openSession();
+			Session session = factory.openSession();
 			session.beginTransaction();
 			
 
