@@ -29,11 +29,8 @@ public class SinhVienDAO {
 		// TODO Auto-generated method stub
 
 	}
-	public JTable ShowTable() {
+	public void ShowTable(JTable table) {
 		Object columns[] = {"", "STT", "Mã SV", "Họ Tên", "Giới Tính", "CMND"};
-
-		JTable table = new JTable();
-	    
 	    DefaultTableModel model = new DefaultTableModel(columns, 0) {
 	    	public Class<?> getColumnClass(int column)
 	    	{
@@ -71,7 +68,6 @@ public class SinhVienDAO {
 	    	model.setValueAt(sv.get(i).getGioitinh(), i, 4);
 	    	model.setValueAt(sv.get(i).getCmnd(), i, 5);
 	    }
-		return table;
 	}
 	public void writeFileSinhVien(String f) {
 		HashMap<String, String> map = Services.ReadFileCSV(f.toString());

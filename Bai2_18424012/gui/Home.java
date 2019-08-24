@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import dao.BangDiemDAO;
 import dao.SinhVienDAO;
 import pojo.SinhVien;
 
@@ -228,46 +229,46 @@ public class Home extends JFrame {
 	    tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
 	    JLabel lbl = new JLabel("Danh Sách Sinh Viên");
 	    tablePanel.add(lbl, BorderLayout.PAGE_START);
-	    Object columns[] = {"", "STT", "Mã SV", "Họ Tên", "Giới Tính", "CMND"};
+//	    Object columns[] = {"", "STT", "Mã SV", "Họ Tên", "Giới Tính", "CMND"};
 	    
-	    DefaultTableModel model = new DefaultTableModel(columns, 0) {
-	    	public Class<?> getColumnClass(int column)
-	    	{
-	    		switch(column)
-	    		{
-	    			case 0: 
-	    				return Boolean.class;
-
-	    			default: return String.class;
-	    		}
-	    	}
-	    };
-
-	    table.setModel(model);
-	    table.setRowHeight(30);
-	    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
-	    table.getColumnModel().getColumn(0).setMaxWidth(30);
-	    // STT
-	    table.getColumnModel().getColumn(1).setMaxWidth(50);
-	    table.getColumnModel().getColumn(2).setMaxWidth(100); // MaSV
-	    table.getColumnModel().getColumn(3).setMaxWidth(300); // Hoten
-	    table.getColumnModel().getColumn(4).setMaxWidth(100); // Gioi Tinh
-	    table.getColumnModel().getColumn(5).setMaxWidth(100); // CMND
-	    table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+//	    DefaultTableModel model = new DefaultTableModel(columns, 0) {
+//	    	public Class<?> getColumnClass(int column)
+//	    	{
+//	    		switch(column)
+//	    		{
+//	    			case 0: 
+//	    				return Boolean.class;
+//
+//	    			default: return String.class;
+//	    		}
+//	    	}
+//	    };
+//
+//	    table.setModel(model);
+//	    table.setRowHeight(30);
+//	    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
+//	    table.getColumnModel().getColumn(0).setMaxWidth(30);
+//	    // STT
+//	    table.getColumnModel().getColumn(1).setMaxWidth(50);
+//	    table.getColumnModel().getColumn(2).setMaxWidth(100); // MaSV
+//	    table.getColumnModel().getColumn(3).setMaxWidth(300); // Hoten
+//	    table.getColumnModel().getColumn(4).setMaxWidth(100); // Gioi Tinh
+//	    table.getColumnModel().getColumn(5).setMaxWidth(100); // CMND
+//	    table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 //	    DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)table.getDefaultRenderer(Boolean.class);
 //	    renderer.setHorizontalAlignment(SwingConstants.RIGHT);
 //	    table.setDefaultRenderer(table.getColumnClass(0), renderer);  
-	    SinhVienDAO svDAO1 = new SinhVienDAO();
-	    List<SinhVien> sv = svDAO1.showAll();
-	    for(int i = 0; i < sv.size(); i++) {
-	    	model.addRow(new Object[0]);
-	    	model.setValueAt(false, i, 0); // set checkbox
-	    	model.setValueAt(i + 1, i, 1); // Số thứ tự
-	    	model.setValueAt(sv.get(i).getMasv(), i, 2);
-	    	model.setValueAt(sv.get(i).getHoten(), i, 3);
-	    	model.setValueAt(sv.get(i).getGioitinh(), i, 4);
-	    	model.setValueAt(sv.get(i).getCmnd(), i, 5);
-	    }
+//	    SinhVienDAO svDAO1 = new SinhVienDAO();
+//	    List<SinhVien> sv = svDAO1.showAll();
+//	    for(int i = 0; i < sv.size(); i++) {
+//	    	model.addRow(new Object[0]);
+//	    	model.setValueAt(false, i, 0); // set checkbox
+//	    	model.setValueAt(i + 1, i, 1); // Số thứ tự
+//	    	model.setValueAt(sv.get(i).getMasv(), i, 2);
+//	    	model.setValueAt(sv.get(i).getHoten(), i, 3);
+//	    	model.setValueAt(sv.get(i).getGioitinh(), i, 4);
+//	    	model.setValueAt(sv.get(i).getCmnd(), i, 5);
+//	    }
 
 	    
 	    // Vung Page_Start
@@ -292,17 +293,17 @@ public class Home extends JFrame {
 		
 		// Vung Line_Start
 		
-	    JPanel pnlLine_Start = new JPanel();
-	    pnlLine_Start.setPreferredSize(new Dimension(280, 300));
-	    pnlLine_Start.setLayout(new BorderLayout(0, 0));
+	    JPanel pnlLine_End = new JPanel();
+	    pnlLine_End.setPreferredSize(new Dimension(280, 300));
+	    pnlLine_End.setLayout(new BorderLayout(0, 0));
 	    
 	    
 		contentPane.add(tablePanel, BorderLayout.CENTER);
 		contentPane.add(page_start, BorderLayout.PAGE_START);
-		contentPane.add(pnlLine_Start, BorderLayout.LINE_START);
+		contentPane.add(pnlLine_End, BorderLayout.LINE_END);
 		
 		JPanel panel_1 = new JPanel();
-		pnlLine_Start.add(panel_1, BorderLayout.NORTH);
+		pnlLine_End.add(panel_1, BorderLayout.NORTH);
 		
 		JLabel lblNewLabel = new JLabel("Search");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -313,7 +314,7 @@ public class Home extends JFrame {
 		textSearch.setColumns(20);
 //		textSearch.setText();
 		tbl_List = new JTable();
-		pnlLine_Start.add(new JScrollPane(tbl_List), BorderLayout.CENTER);
+		pnlLine_End.add(new JScrollPane(tbl_List), BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
@@ -322,12 +323,19 @@ public class Home extends JFrame {
 		panel.add(btnTKB);
 		
 		JButton btnXemDiem = new JButton("Xem Điểm");
+		btnXemDiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BangDiemDAO dao = new BangDiemDAO();
+				dao.ShowTable(table);
+			}
+		});
 		panel.add(btnXemDiem);
 		
 		JButton btnXemDsLop = new JButton("XemDSLop");
 		btnXemDsLop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				table = svDAO.ShowTable();
+				SinhVienDAO dao = new SinhVienDAO();
+				dao.ShowTable(table);
 			}
 		});
 		panel.add(btnXemDsLop);
@@ -356,12 +364,12 @@ public class Home extends JFrame {
 				//640
 				if(contentPane.getWidth() - addSinhVien.getWidth() > 630) {
 					addSinhVien.setVisible(true);
-					pnlLine_Start.setVisible(true);
+					pnlLine_End.setVisible(true);
 				}
 				else
 				{
 					addSinhVien.setVisible(false);
-					pnlLine_Start.setVisible(false);
+					pnlLine_End.setVisible(false);
 				}
 			};
 		});
