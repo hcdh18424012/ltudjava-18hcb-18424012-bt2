@@ -16,6 +16,15 @@ public class BangDiem implements java.io.Serializable {
 	@Id
 	private String malop;
 	private String masv;
+	private String hoten;
+	public String getHoten() {
+		return hoten;
+	}
+
+	public void setHoten(String hoten) {
+		this.hoten = hoten;
+	}
+
 	private Float diemgk;
 	private Float diemck;
 	private Float diemkhac;
@@ -29,9 +38,10 @@ public class BangDiem implements java.io.Serializable {
 		this.masv = masv;
 	}
 
-	public BangDiem(String malop, String masv, Float diemgk, Float diemck, Float diemkhac, Float diemtong) {
+	public BangDiem(String malop, String masv, String hoten, Float diemgk, Float diemck, Float diemkhac, Float diemtong) {
 		this.malop = malop;
 		this.masv = masv;
+		this.hoten = hoten;
 		this.diemgk = diemgk;
 		this.diemck = diemck;
 		this.diemkhac = diemkhac;

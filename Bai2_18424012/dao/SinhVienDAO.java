@@ -1,5 +1,7 @@
 package dao;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,10 +17,11 @@ import org.hibernate.cfg.Configuration;
 import com.mysql.cj.Query;
 
 import gui.Services;
+import pojo.Lop_SinhVien;
 import pojo.SinhVien;
 
 public class SinhVienDAO {
-
+	private static String filename; // Dung la lam ten lop
 	private static SessionFactory factory = HibernateUtil.getSessionFactory();
 	public static void main(String[] args) {
 		try {	
@@ -71,6 +74,8 @@ public class SinhVienDAO {
 	}
 	public void addSinhVienfromCSV(String f) {
 		HashMap<String, String> map = Services.ReadFileCSV(f.toString());
+		String []path = Paths.get(f).getFileName().toString().split("\\.");
+		filename = path[0];
 		String title = map.get("title");
 		map.remove("title");
 		String masv;
@@ -146,6 +151,10 @@ public class SinhVienDAO {
 				System.out.println("Add: " + masv);
 				SinhVien new_item = new SinhVien(masv, hoten, gioitinh, cmnd);
 				session.save(new_item);
+				System.out.println(filename);
+				Lop_SinhVien new_lopsv = new Lop_SinhVien(filename + "-" + masv, filename, masv);
+				session.save(new_lopsv);
+
 			}
 			else 
 				if(masinhvien.get(0).equals(masv)) {

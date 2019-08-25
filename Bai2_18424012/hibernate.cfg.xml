@@ -13,5 +13,6 @@
   <mapping class="pojo.SinhVien" />
   <mapping class="pojo.ThoiKhoaBieu" />
   <mapping class="pojo.BangDiem" />
+  <mapping class="pojo.Lop_SinhVien" />
  </session-factory>
 </hibernate-configuration>

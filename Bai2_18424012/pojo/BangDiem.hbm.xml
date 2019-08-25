@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Aug 14, 2019 11:02:17 AM by Hibernate Tools 3.5.0.Final -->
+<!-- Generated Aug 25, 2019 3:04:31 PM by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="pojo.BangDiem" table="BANGDIEM">
         <id name="malop" type="java.lang.String">
@@ -10,6 +10,9 @@
         </id>
         <property name="masv" type="java.lang.String">
             <column name="MASV" />
+        </property>
+        <property name="hoten" type="java.lang.String" access="field">
+            <column name="HOTEN" />
         </property>
         <property name="diemgk" type="java.lang.Float">
             <column name="DIEMGK" />

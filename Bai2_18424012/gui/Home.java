@@ -122,19 +122,33 @@ public class Home extends JFrame {
 		JMenu mnQLDiem = new JMenu("Quản Lý Điểm");
 		menuBar.add(mnQLDiem);
 		
-		JMenuItem mntmXemDiem = new JMenuItem("Xem Điểm");
-		mnQLDiem.add(mntmXemDiem);
-		
 		JMenuItem mntmSuaDiem = new JMenuItem("Sửa Điểm");
+		mntmSuaDiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SuaDiem suadiem = new SuaDiem();
+				suadiem.setVisible(true);
+			}
+			
+		});
 		mnQLDiem.add(mntmSuaDiem);
 		
 		JMenu mnDangKyCT = new JMenu("ĐK Cải Thiện");
 		menuBar.add(mnDangKyCT);
 		
 		JMenuItem mntmXinNghi = new JMenuItem("Xin Nghỉ");
+		mntmXinNghi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		mnDangKyCT.add(mntmXinNghi);
 		
 		JMenuItem mntmXinCaiThien = new JMenuItem("Xin Cải Thiện");
+		mntmXinCaiThien.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		mnDangKyCT.add(mntmXinCaiThien);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 5, 5));

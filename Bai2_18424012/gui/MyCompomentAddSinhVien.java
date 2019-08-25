@@ -19,10 +19,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import dao.SinhVienDAO;
+
 class MyCompomentAddSinhVien extends JPanel implements ActionListener {
 	JPanel panelMangerSV;
 	private JTextField txtMSV;
 	private JTextField txtHoTen;
+	private JRadioButton rdbtnNu;
+	private JRadioButton rdbtnNam;
 	private JTextField txtCMND;
 	public MyCompomentAddSinhVien() {
 		JPanel panelMangerSV = new JPanel();
@@ -48,26 +52,29 @@ class MyCompomentAddSinhVien extends JPanel implements ActionListener {
 		btnAdd.setBounds(164, 216, 89, 23);
 		panelMangerSV.add(btnAdd);
 		
-		JComboBox cbBoxMaLop = new JComboBox();
-		cbBoxMaLop.setBounds(115, 47, 138, 20);
-		panelMangerSV.add(cbBoxMaLop);
+//		JComboBox cbBoxMaLop = new JComboBox();
+//		cbBoxMaLop.setBounds(115, 47, 138, 20);
+//		panelMangerSV.add(cbBoxMaLop);
+		JTextField txtMaLop = new JTextField();
+		txtMaLop.setBounds(115, 47, 138, 20);
+		panelMangerSV.add(txtMaLop);
 		
-		JLabel lblNewLabel = new JLabel("M\u00E3 L\u1EDBp");
+		JLabel lblNewLabel = new JLabel("Ma Lop");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setBounds(10, 47, 95, 14);
 		panelMangerSV.add(lblNewLabel);
 		
-		JLabel lblMSinhVin = new JLabel("M\u00E3 Sinh Vi\u00EAn");
+		JLabel lblMSinhVin = new JLabel("Ma Sinh Vien");
 		lblMSinhVin.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMSinhVin.setBounds(10, 81, 95, 14);
 		panelMangerSV.add(lblMSinhVin);
 		
-		JLabel lblHTn = new JLabel("H\u1ECD T\u00EAn");
+		JLabel lblHTn = new JLabel("Ho Ten");
 		lblHTn.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblHTn.setBounds(10, 116, 95, 14);
 		panelMangerSV.add(lblHTn);
 		
-		JLabel lblGiiTnh = new JLabel("Gi\u1EDBi T\u00EDnh");
+		JLabel lblGiiTnh = new JLabel("Gioi Tinh");
 		lblGiiTnh.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblGiiTnh.setBounds(10, 163, 95, 14);
 		panelMangerSV.add(lblGiiTnh);
@@ -86,11 +93,11 @@ class MyCompomentAddSinhVien extends JPanel implements ActionListener {
 		panelMangerSV.add(panel);
 		panel.setLayout(null);
 		
-		JRadioButton rdbtnNu = new JRadioButton("N\u1EEF");
+		rdbtnNu = new JRadioButton("Nu");
 		rdbtnNu.setBounds(6, 21, 66, 23);
 		panel.add(rdbtnNu);
 
-		JRadioButton rdbtnNam = new JRadioButton("Nam");
+		rdbtnNam = new JRadioButton("Nam");
 		rdbtnNam.setBounds(74, 21, 58, 23);
 		panel.add(rdbtnNam);
 		
@@ -98,7 +105,7 @@ class MyCompomentAddSinhVien extends JPanel implements ActionListener {
 		rdbtnGroup.add(rdbtnNam);
 		rdbtnGroup.add(rdbtnNu);
 		
-		JLabel lblThem = new JLabel("Th\u00EAm Sinh Vi\u00EAn");
+		JLabel lblThem = new JLabel("Them Sinh Vien");
 		lblThem.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblThem.setForeground(Color.BLUE);
 		lblThem.setHorizontalAlignment(SwingConstants.CENTER);
@@ -106,12 +113,22 @@ class MyCompomentAddSinhVien extends JPanel implements ActionListener {
 		panelMangerSV.add(lblThem);
 		setLayout(new BorderLayout());
 		add(panelMangerSV, BorderLayout.CENTER);
-		Border border = BorderFactory.createTitledBorder("Thêm Sinh Viên");
+		Border border = BorderFactory.createTitledBorder("Them Sinh Vien");
 		setBorder(border);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		SinhVienDAO dao = new SinhVienDAO();
+		String masv = txtMSV.getText();
+		String hoten = txtHoTen.getText();
+		String gioitinh = "";
+		if(rdbtnNam.isSelected())
+			gioitinh = "Nam";
+		else
+			gioitinh = "Ná»¯";
+		String cmnd = txtCMND.getText();
+		dao.addSinhVien(masv, hoten, gioitinh, cmnd);
 		
 	}
 }

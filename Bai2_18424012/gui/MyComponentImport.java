@@ -25,6 +25,7 @@ import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import dao.BangDiemDAO;
 import dao.SinhVienDAO;
 import dao.ThoiKhoaBieuDAO;
 
@@ -129,7 +130,7 @@ public class MyComponentImport extends JPanel implements ActionListener{
 				
 			if(rDiem.isSelected()) {
 				System.out.println("Import Diem");
-				
+				ImportBangDiemToTable();
 			}
 				
 			if(rTKB.isSelected()) {
@@ -160,6 +161,16 @@ public class MyComponentImport extends JPanel implements ActionListener{
 			txtArea.setText(setTextArea(listFileTxtArea));
 			ThoiKhoaBieuDAO dao = new ThoiKhoaBieuDAO();
 			dao.addTKBformCSV(f.toString());
+		}
+	}
+	public void ImportBangDiemToTable() {
+		for(File f: files) {
+			System.out.println("Đang import: " + f);
+			listFileTxtArea.removeIf(s -> s.equals(f.toString()));
+			System.out.println(listFileTxtArea.size());
+			txtArea.setText(setTextArea(listFileTxtArea));
+			BangDiemDAO dao = new BangDiemDAO();
+			dao.addBangDiemfromCSV(f.toString());
 		}
 	}
 	public String setTextArea(List<String> list) {
