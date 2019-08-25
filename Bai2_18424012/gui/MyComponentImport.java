@@ -26,6 +26,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import dao.SinhVienDAO;
+import dao.ThoiKhoaBieuDAO;
 
 import java.io.File;
 
@@ -120,13 +121,24 @@ public class MyComponentImport extends JPanel implements ActionListener{
 			txtArea.setText(setTextArea(listFileTxtArea));
 		}
 		if(e.getActionCommand().equals("Import")) {
-			ImportfileToTable();
-			if(rLop.isSelected())
+			
+			if(rLop.isSelected()) {
 				System.out.println("Import Lop");
-			if(rDiem.isSelected())
+				ImportfileToTable();
+			}
+				
+			if(rDiem.isSelected()) {
 				System.out.println("Import Diem");
-			if(rTKB.isSelected())
+				
+			}
+				
+			if(rTKB.isSelected()) {
 				System.out.println("Import TKB");
+//				ThoiKhoaBieuDAO dao = new ThoiKhoaBieuDAO();
+//				dao.addTKBformCSV("F:\\HK\\III\\Standard\\My Homework\\Java\\Bai Tap\\Data\\TKB\\17HCB.csv");
+				ImportThoiKhoaBieuToTable();
+			}
+				
 		}
 			
 	}
@@ -137,7 +149,17 @@ public class MyComponentImport extends JPanel implements ActionListener{
 			System.out.println(listFileTxtArea.size());
 			txtArea.setText(setTextArea(listFileTxtArea));
 			SinhVienDAO sinhVienDAO = new SinhVienDAO();
-			sinhVienDAO.writeFileSinhVien(f.toString());
+			sinhVienDAO.addSinhVienfromCSV(f.toString());
+		}
+	}
+	public void ImportThoiKhoaBieuToTable() {
+		for(File f: files) {
+			System.out.println("Đang import: " + f);
+			listFileTxtArea.removeIf(s -> s.equals(f.toString()));
+			System.out.println(listFileTxtArea.size());
+			txtArea.setText(setTextArea(listFileTxtArea));
+			ThoiKhoaBieuDAO dao = new ThoiKhoaBieuDAO();
+			dao.addTKBformCSV(f.toString());
 		}
 	}
 	public String setTextArea(List<String> list) {

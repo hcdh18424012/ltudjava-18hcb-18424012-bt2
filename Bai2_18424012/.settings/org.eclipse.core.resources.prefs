@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//dao/SinhVienDAO.java=UTF-8
+encoding//dao/ThoiKhoaBieuDAO.java=UTF-8
 encoding//gui/Home.java=UTF-8
 encoding//gui/Login.java=UTF-8
 encoding//gui/MyComponentImport.java=UTF-8

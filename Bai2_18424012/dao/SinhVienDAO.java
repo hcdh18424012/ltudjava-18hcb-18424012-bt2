@@ -69,7 +69,7 @@ public class SinhVienDAO {
 	    	model.setValueAt(sv.get(i).getCmnd(), i, 5);
 	    }
 	}
-	public void writeFileSinhVien(String f) {
+	public void addSinhVienfromCSV(String f) {
 		HashMap<String, String> map = Services.ReadFileCSV(f.toString());
 		String title = map.get("title");
 		map.remove("title");

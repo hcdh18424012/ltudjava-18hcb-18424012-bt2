@@ -25,6 +25,7 @@ import javax.swing.table.TableCellRenderer;
 
 import dao.BangDiemDAO;
 import dao.SinhVienDAO;
+import dao.ThoiKhoaBieuDAO;
 import pojo.SinhVien;
 
 import javax.swing.JTextArea;
@@ -319,13 +320,19 @@ public class Home extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
-		JButton btnTKB = new JButton("Xem TKB");
-		panel.add(btnTKB);
-		
 		JButton btnXemDiem = new JButton("Xem Điểm");
 		btnXemDiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BangDiemDAO dao = new BangDiemDAO();
+				dao.ShowTable(table);
+			}
+		});
+		
+		JButton btnTKB = new JButton("Xem TKB");
+		panel.add(btnTKB);
+		btnTKB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ThoiKhoaBieuDAO dao = new ThoiKhoaBieuDAO();
 				dao.ShowTable(table);
 			}
 		});
@@ -353,10 +360,6 @@ public class Home extends JFrame {
 			}
 		});
 		panel.add(btnAnHien);
-		btnTKB.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		setMinimumSize(new Dimension(630, 500));
 		importPanel.addComponentListener(new ComponentAdapter(){
 			
