@@ -21,7 +21,7 @@ import javax.swing.border.Border;
 
 import dao.SinhVienDAO;
 
-class MyCompomentAddSinhVien extends JPanel implements ActionListener {
+class MyCompomentAddSinhVien extends JPanel {
 	JPanel panelMangerSV;
 	private JTextField txtMSV;
 	private JTextField txtHoTen;
@@ -49,6 +49,20 @@ class MyCompomentAddSinhVien extends JPanel implements ActionListener {
 		txtCMND.setColumns(10);
 		
 		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SinhVienDAO dao = new SinhVienDAO();
+				String masv = txtMSV.getText();
+				String hoten = txtHoTen.getText();
+				String gioitinh = "";
+				if(rdbtnNam.isSelected())
+					gioitinh = "Nam";
+				else
+					gioitinh = "Nữ";
+				String cmnd = txtCMND.getText();
+				dao.addSinhVien(masv, hoten, gioitinh, cmnd);
+			}
+		});
 		btnAdd.setBounds(164, 216, 89, 23);
 		panelMangerSV.add(btnAdd);
 		
@@ -85,6 +99,15 @@ class MyCompomentAddSinhVien extends JPanel implements ActionListener {
 		panelMangerSV.add(lblCmnd);
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtMaLop.setText("");
+				txtMSV.setText("");
+				txtHoTen.setText("");
+				txtCMND.setText("");
+
+			}
+		});
 		btnCancel.setBounds(65, 216, 89, 23);
 		panelMangerSV.add(btnCancel);
 		
@@ -116,19 +139,19 @@ class MyCompomentAddSinhVien extends JPanel implements ActionListener {
 		Border border = BorderFactory.createTitledBorder("Them Sinh Vien");
 		setBorder(border);
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		SinhVienDAO dao = new SinhVienDAO();
-		String masv = txtMSV.getText();
-		String hoten = txtHoTen.getText();
-		String gioitinh = "";
-		if(rdbtnNam.isSelected())
-			gioitinh = "Nam";
-		else
-			gioitinh = "Nữ";
-		String cmnd = txtCMND.getText();
-		dao.addSinhVien(masv, hoten, gioitinh, cmnd);
-		
-	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		// TODO Auto-generated method stub
+//		SinhVienDAO dao = new SinhVienDAO();
+//		String masv = txtMSV.getText();
+//		String hoten = txtHoTen.getText();
+//		String gioitinh = "";
+//		if(rdbtnNam.isSelected())
+//			gioitinh = "Nam";
+//		else
+//			gioitinh = "Nữ";
+//		String cmnd = txtCMND.getText();
+//		dao.addSinhVien(masv, hoten, gioitinh, cmnd);
+//		
+//	}
 }

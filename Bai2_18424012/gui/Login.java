@@ -27,6 +27,7 @@ public class Login extends JFrame {
 	private JTextField txtUsername;
 	private JTextField txtPassword;
 	private JLabel lblLogin;
+	public static String user;
 	/**
 	 * Launch the application.
 	 */
@@ -90,6 +91,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				txtUsername.setText(null);
 				txtPassword.setText(null);
+				lblLogin.setText("");
 			}
 		});
 		btnCancel.setBounds(50, 98, 89, 23);
@@ -98,7 +100,7 @@ public class Login extends JFrame {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String user = txtUsername.getText();
+				user = txtUsername.getText();
 				System.out.println(user);
 				String pass = txtPassword.getText();
 				
@@ -113,14 +115,16 @@ public class Login extends JFrame {
 						
 						Services.setData(user);
 						lblLogin.setForeground(Color.BLUE);
-						lblLogin.setText(s +  ": Đăng nhập thành công");
+//						lblLogin.setText(s +  ": Đăng nhập thành công");
 						if(s.equalsIgnoreCase(user)) {
 							frame.setVisible(false);
 							if(user.equalsIgnoreCase("giaovu")) {
 								frameHome.setVisible(true);
+								frameHome.setTitle(user);
 							}
 							else {
-								frameSinhVien.setVisible(true);					
+								frameSinhVien.setVisible(true);		
+								frameSinhVien.setTitle(user);
 							}
 
 						}
@@ -146,5 +150,41 @@ public class Login extends JFrame {
 		frame.setVisible(true);
 		frameSinhVien.setVisible(false);
 		frameHome.setVisible(false);
+	}
+	public boolean ktraLogin() {
+		String user = txtUsername.getText();
+		System.out.println(user);
+		String pass = txtPassword.getText();
+		
+		if(user.equals("") || pass.equals("")){
+			lblLogin.setForeground(Color.ORANGE);
+			lblLogin.setText("Chưa nhập Username or Password");
+		}else
+		{
+			UserPass userpass = new UserPass(user, pass);
+			String s = UserPassDAO.Login(userpass);
+			if(s != null) {
+				
+				Services.setData(user);
+				lblLogin.setForeground(Color.BLUE);
+//				lblLogin.setText(s +  ": Đăng nhập thành công");
+				if(s.equalsIgnoreCase(user)) {
+					frame.setVisible(false);
+					if(user.equalsIgnoreCase("giaovu") && pass.equals("giaovu")) {
+						frameHome.setVisible(true);
+					}
+					else {
+						frameSinhVien.setVisible(true);					
+					}
+					return true;
+				}
+				else
+				{
+					lblLogin.setForeground(Color.ORANGE);
+					lblLogin.setText("Username or Password không đúng");
+				}
+			}
+		}
+		return false;
 	}
 }

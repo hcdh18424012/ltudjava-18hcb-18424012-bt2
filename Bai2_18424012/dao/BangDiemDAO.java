@@ -21,9 +21,9 @@ public class BangDiemDAO {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BangDiemDAO dao = new BangDiemDAO();
-//		dao.addBangDiem("17HCB","HDHY", "Chau",8,9,9,9);
+		dao.UpdateBangDiem("18HCB–CTT001","1742005",8,8,8,8);
 //		dao.addBangDiem("17HCB","HDH", "Chau",8,9,9,9);
-////	    showAllBangDiem();
+	    showAllBangDiem();
 	}
 	public void ShowTable(JTable table) {
 		Object columns[] = {"", "STT", "Ma SV", "Giua Ky", "Cuoi Ky", "Diem Khac", "Diem Tong", "Ma Lop"};
@@ -70,15 +70,15 @@ public class BangDiemDAO {
 	}
 	public static List<BangDiem> showAllBangDiem() {
 		List<BangDiem> list = new ArrayList<>();
-		Session session= factory.openSession();
+		Session session = factory.openSession();
 		try{
+			
 			session.beginTransaction();
-
+//			String query = "from BangDiem where masv = " + "1842002";
 			list = session.createQuery("from BangDiem").list();
-//			for (BangDiem item : list) {
-//				System.out.println(item.getMalop() + "\t" + item.getMasv()
-//				+ "\t" + item.getDiemgk() + "," + item.getDiemck() +","+ item.getDiemkhac() +","+ item.getDiemtong());
-//			}
+			for (BangDiem item : list) {
+				System.out.println(item.getMalop() + "\t" + item.getMasv());
+			}
 		} catch (RuntimeException e) {
 			session.getTransaction().rollback();
 			e.printStackTrace();
@@ -87,6 +87,7 @@ public class BangDiemDAO {
 			session.close();
 		}
 		return list;
+		
 	}
 	public void addBangDiem(String malop, String masv, String hoten, float diemgk, float diemck, float diemkhac, float diemtong) {
 		Session session = factory.openSession();

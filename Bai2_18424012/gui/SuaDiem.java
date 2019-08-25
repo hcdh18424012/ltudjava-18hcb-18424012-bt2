@@ -50,7 +50,7 @@ public class SuaDiem extends JFrame {
 	 */
 	public SuaDiem() {
 		setTitle("Sua Diem");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 304, 261);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -68,10 +68,10 @@ public class SuaDiem extends JFrame {
 				try {
 					String malop = txtmalop.getText();
 					String masv = txtmasv.getText();
-					float diemgk = Float.parseFloat(txtGK.getText());
+					float diemgk = Float.parseFloat(txtGK.getText().trim());
 					float diemck = Float.parseFloat(txtCK.getText());
-					float diemkhac = Float.parseFloat(txtDiemKhac.getText());
-					float diemtong = Float.parseFloat(txtDiemTong.getText());
+					float diemkhac = Float.parseFloat(txtDiemKhac.getText().trim());
+					float diemtong = Float.parseFloat(txtDiemTong.getText().trim());
 					dao.UpdateBangDiem(malop, masv, diemgk, diemck, diemkhac, diemtong);
 					lblStatus.setForeground(Color.BLUE);
 					lblStatus.setText("Hoan Thanh Sua Diem SV");

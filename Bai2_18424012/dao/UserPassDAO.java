@@ -38,14 +38,12 @@ public class UserPassDAO {
 		}
 	}
 
-	public static void UpdatePass() {
+	public void UpdatePass(String name, String newpass) {
 		Session session = factory.openSession();
 		try {
 			session.beginTransaction();
 			String query = "update UserPass set password = :newPass where username = :name";
-			String newPass = "giaovu";
-			String name = "giaovu";
-			session.createQuery(query).setString("newPass", newPass).setString("name", name).executeUpdate();
+			session.createQuery(query).setString("newPass", newpass).setString("name", name).executeUpdate();
 		
 			session.getTransaction().commit();
 			System.out.println("Insert finished");
@@ -62,8 +60,8 @@ public class UserPassDAO {
 		Session session = factory.openSession();
 		try {
 			session.beginTransaction();
-			String query = "select username from UserPass where username = :username";
-			Query query_results = session.createQuery(query).setString("username", user.getUsername());
+			String query = "select username from UserPass where username = :username and password = :password";
+			Query query_results = session.createQuery(query).setString("username", user.getUsername()).setString("password", user.getPassword());
 //			session.createQuery(query).setString("username", user.getUsername()).setString("password", user.getPassword()).executeUpdate();
 			List results = query_results.list();
 			if(results.size() > 0) {
@@ -74,7 +72,7 @@ public class UserPassDAO {
 				
 			session.getTransaction().commit();
 			
-			System.out.println("Insert finished");
+			System.out.println("Finished");
 			return query;
 		} catch (Exception e) {
 			session.getTransaction().rollback();

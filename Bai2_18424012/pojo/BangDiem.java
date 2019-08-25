@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @Table(name = "bangdiem")
 public class BangDiem implements java.io.Serializable {
 	@Id
+	private int id;
 	private String malop;
 	private String masv;
 	private String hoten;

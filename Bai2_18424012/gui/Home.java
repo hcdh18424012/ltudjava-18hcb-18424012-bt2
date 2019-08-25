@@ -86,7 +86,7 @@ public class Home extends JFrame {
 	public void TestGui() {}
 	public Home() {
 		setTitle("Home: " + Services.getData());
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 869, 608);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -109,6 +109,9 @@ public class Home extends JFrame {
 		mntmChangePassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Change Password actionPerformed");
+				ChangePassword f = new ChangePassword();
+				f.setLocationRelativeTo(null);
+				f.setVisible(true);
 			}
 		});
 		mntmChangePassword.addMouseListener(new MouseAdapter() {
@@ -138,7 +141,9 @@ public class Home extends JFrame {
 		JMenuItem mntmXinNghi = new JMenuItem("Xin Nghỉ");
 		mntmXinNghi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				XinNghi f = new XinNghi();
+				f.setLocationRelativeTo(null);
+				f.setVisible(true);
 			}
 		});
 		mnDangKyCT.add(mntmXinNghi);
@@ -146,7 +151,9 @@ public class Home extends JFrame {
 		JMenuItem mntmXinCaiThien = new JMenuItem("Xin Cải Thiện");
 		mntmXinCaiThien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				CaiThien f = new CaiThien();
+				f.setLocationRelativeTo(null);
+				f.setVisible(true);
 			}
 		});
 		mnDangKyCT.add(mntmXinCaiThien);
@@ -362,6 +369,13 @@ public class Home extends JFrame {
 		panel.add(btnXemDsLop);
 		
 		JButton btnPhucKhao = new JButton("Phúc Khảo");
+		btnPhucKhao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PhucKhao f = new PhucKhao();
+				f.setLocationRelativeTo(null);
+				f.setVisible(true);
+			}
+		});
 		panel.add(btnPhucKhao);
 		
 		JButton btnAnHien = new JButton("Show/Hide Page_Start");

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 25, 2019 8:35:30 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="pojo.SvPhucKhao" table="SVPHUCKHAO">
+        <id name="masv" type="java.lang.String">
+            <column name="MASV" />
+            <generator class="assigned" />
+        </id>
+        <property name="malop" type="java.lang.String">
+            <column name="MALOP" />
+        </property>
+        <property name="trangthai" type="java.lang.String">
+            <column name="TRANGTHAI" />
+        </property>
+    </class>
+</hibernate-mapping>
